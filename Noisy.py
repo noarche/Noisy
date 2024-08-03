@@ -15,9 +15,30 @@ UA = UserAgent(min_percentage=15.1)
 REQUEST_COUNTER = -1
 SYS_RANDOM = random.SystemRandom()
 
-# Global variable to track bandwidth usage
+
 total_bandwidth = 0
 
+main_logo = '''
+
+                                                              
+\033[92m  ░▒▓███████▓▒░ ░▒▓██████▓▒░░▒▓█▓▒░░▒▓███████▓▒░▒▓█▓▒░░▒▓█▓▒░ \033[0m
+\033[92m  ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░ \033[0m
+\033[92m  ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░ \033[0m
+\033[92m  ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓██████▓▒░ ░▒▓██████▓▒░  \033[0m
+\033[92m  ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░  ░▒▓█▓▒░     \033[0m
+\033[92m  ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░  ░▒▓█▓▒░     \033[0m
+\033[92m  ░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░░▒▓█▓▒░▒▓███████▓▒░   ░▒▓█▓▒░     \033[0m
+
+                                                          
+      \033[95m****************************\033[0m
+      \033[96m github.com/noarche/Noisy   \033[0m
+      \033[94m    Traffic Obfuscation     \033[0m
+      \033[95m****************************\033[0m
+
+\033[94m Visit the github for more information. \033[0m
+
+'''
+print(main_logo)
 class Crawler:
     def __init__(self):
         self._config = {}
@@ -39,7 +60,7 @@ class Crawler:
                 print_bandwidth_usage()
             return response
         except requests.exceptions.RequestException as e:
-            logging.error(f"Request failed: {e}")
+            logging.error(f"\033[91mRequest failed: {e}\033[0m")
             return None
 
     @staticmethod

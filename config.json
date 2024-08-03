@@ -62,7 +62,7 @@
         "https://example.com/blacklisted-page",
         "https://anotherexample.com/blacklisted-section"
     ],
-    "max_depth": 5,
+    "max_depth": 6,
     "timeout": 9999999999,
     "min_sleep": 5,
     "max_sleep": 15

@@ -84,7 +84,8 @@ class Crawler:
         del self._links[self._links.index(link)]
 
     def _browse_from_links(self, depth=0):
-        is_depth_reached = depth >= self._config["max_depth"]
+        max_depth = SYS_RANDOM.randint(1, self._config["max_depth"])
+        is_depth_reached = depth >= max_depth
         if not self._links or is_depth_reached:
             logging.debug("Hit a dead end, moving to the next root URL")
             return

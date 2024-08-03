@@ -93,7 +93,7 @@ class Crawler:
             raise self.CrawlerTimedOut
         random_link = SYS_RANDOM.choice(self._links)
         try:
-            logging.info("Visiting {}".format(random_link))
+            logging.info("\033[96mVisiting {}\033[0m".format(random_link))
             response = self._request(random_link)
             if response:
                 sub_page = response.content
@@ -137,13 +137,13 @@ class Crawler:
                     logging.debug("found {} links".format(len(self._links)))
                     self._browse_from_links()
             except (requests.exceptions.RequestException, UnicodeDecodeError):
-                logging.warning("Error connecting to root url: {}".format(url))
+                logging.warning("\033[95mError connecting to root url: {}\033[0m".format(url))
             except MemoryError:
-                logging.warning("Error: content at url: {} is exhausting the memory".format(url))
+                logging.warning("\033[91mError: content at url: {} is exhausting the memory\033[0m".format(url))
             except LocationParseError:
-                logging.warning("Error encountered during parsing of: {}".format(url))
+                logging.warning("\033[93mError encountered during parsing of: {}\033[0m".format(url))
             except self.CrawlerTimedOut:
-                logging.info("Timeout has exceeded, exiting")
+                logging.info("\033[91mTimeout has exceeded, exiting")
                 return
 
 def print_bandwidth_usage():
@@ -151,7 +151,7 @@ def print_bandwidth_usage():
     # Convert bytes to megabytes
     mb_used = total_bandwidth / (1024 * 1024)
     # Print the total bandwidth used, overwriting the previous line
-    print(f"\rTotal Bandwidth Used: {mb_used:.2f} MB", end="", flush=True)
+    print(f"\r\033[32mTotal Bandwidth Used:\033[0m \033[93m{mb_used:.2f}\033[0m \033[32mMB\033[0m", end="", flush=True)
 
 def main():
     parser = argparse.ArgumentParser()

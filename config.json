@@ -1,0 +1,14 @@
+{
+    "root_urls": [
+        "https://example.com",
+        "https://anotherexample.com"
+    ],
+    "blacklisted_urls": [
+        "https://example.com/blacklisted-page",
+        "https://anotherexample.com/blacklisted-section"
+    ],
+    "max_depth": 5,
+    "timeout": 600,
+    "min_sleep": 2,
+    "max_sleep": 5
+}

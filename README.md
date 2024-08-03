@@ -10,7 +10,7 @@ If you create a copy you can use the `--config newconfig.json` argument to load 
 
  Depth
  
- `how many links to click before moving to next domain`
+ `Set maximum links to click while staying on the same domain. A random number in between 1 and the number provided will be used.`
 
  Config loads config.json
 

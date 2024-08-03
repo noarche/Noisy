@@ -15,6 +15,9 @@ UA = UserAgent(min_percentage=15.1)
 REQUEST_COUNTER = -1
 SYS_RANDOM = random.SystemRandom()
 
+# Global variable to track bandwidth usage
+total_bandwidth = 0
+
 class Crawler:
     def __init__(self):
         self._config = {}
@@ -26,10 +29,15 @@ class Crawler:
 
     @staticmethod
     def _request(url):
+        global total_bandwidth
         random_user_agent = UA.random
         headers = {"user-agent": random_user_agent}
         try:
-            return requests.get(url, headers=headers, timeout=5)
+            response = requests.get(url, headers=headers, timeout=5)
+            if response:
+                total_bandwidth += len(response.content)
+                print_bandwidth_usage()
+            return response
         except requests.exceptions.RequestException as e:
             logging.error(f"Request failed: {e}")
             return None
@@ -136,6 +144,13 @@ class Crawler:
             except self.CrawlerTimedOut:
                 logging.info("Timeout has exceeded, exiting")
                 return
+
+def print_bandwidth_usage():
+    global total_bandwidth
+    # Convert bytes to megabytes
+    mb_used = total_bandwidth / (1024 * 1024)
+    # Print the total bandwidth used, overwriting the previous line
+    print(f"\rTotal Bandwidth Used: {mb_used:.2f} MB", end="")
 
 def main():
     parser = argparse.ArgumentParser()

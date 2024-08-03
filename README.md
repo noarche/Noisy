@@ -9,6 +9,7 @@ By default the script uses config.json.
 If you create a copy you can use the `--config newconfig.json` argument to load newconfig.json. 
 
  Depth
+ 
  `how many links to click before moving to next domain`
 
  Config loads config.json

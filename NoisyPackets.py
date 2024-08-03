@@ -5,6 +5,7 @@ import logging
 import random
 import re
 import time
+import os
 from urllib.parse import urljoin, urlparse
 import requests
 from fake_useragent import UserAgent
@@ -59,7 +60,7 @@ class Crawler:
         return re.match(regex, url) is not None
 
     def _is_blacklisted(self, url):
-        return any(blacklisted_url in url for blacklisted_url in self._config.get("blacklisted_urls", []))
+        return any(blacklisted_url in url for blacklisted_url in self._config["blacklisted_urls"])
 
     def _should_accept_url(self, url):
         return url and self._is_valid_url(url) and not self._is_blacklisted(url)
@@ -71,38 +72,31 @@ class Crawler:
         return list(filter(self._should_accept_url, normalize_urls))
 
     def _remove_and_blacklist(self, link):
-        self._config.setdefault("blacklisted_urls", []).append(link)
-        if link in self._links:
-            self._links.remove(link)
+        self._config["blacklisted_urls"].append(link)
+        del self._links[self._links.index(link)]
 
     def _browse_from_links(self, depth=0):
-        if depth >= self._config.get("max_depth", 0) or not self._links:
+        is_depth_reached = depth >= self._config["max_depth"]
+        if not self._links or is_depth_reached:
             logging.debug("Hit a dead end, moving to the next root URL")
             return
         if self._is_timeout_reached():
             raise self.CrawlerTimedOut
-
         random_link = SYS_RANDOM.choice(self._links)
         try:
-            logging.info(f"Visiting {random_link}")
+            logging.info("Visiting {}".format(random_link))
             response = self._request(random_link)
-            if response is None:
-                self._remove_and_blacklist(random_link)
-                return
-
-            sub_page = response.content
-            sub_links = self._extract_urls(sub_page, random_link)
-
-            time.sleep(SYS_RANDOM.uniform(self._config.get("min_sleep", 1), self._config.get("max_sleep", 3)))
-
-            if len(sub_links) > 1:
-                self._links.extend(sub_links)
-            else:
-                self._remove_and_blacklist(random_link)
-        except (requests.exceptions.RequestException, UnicodeDecodeError) as e:
-            logging.debug(f"Exception on URL: {random_link}, removing from list and trying again! Error: {e}")
+            if response:
+                sub_page = response.content
+                sub_links = self._extract_urls(sub_page, random_link)
+                time.sleep(SYS_RANDOM.randrange(self._config["min_sleep"], self._config["max_sleep"]))
+                if len(sub_links) > 1:
+                    self._links = self._extract_urls(sub_page, random_link)
+                else:
+                    self._remove_and_blacklist(random_link)
+        except (requests.exceptions.RequestException, UnicodeDecodeError):
+            logging.debug("Exception on URL: {}, removing from list and trying again!".format(random_link))
             self._remove_and_blacklist(random_link)
-
         self._browse_from_links(depth + 1)
 
     def load_config_file(self, file_path):
@@ -117,46 +111,53 @@ class Crawler:
         self._config[option] = value
 
     def _is_timeout_reached(self):
-        timeout = self._config.get("timeout")
-        if timeout is False:
-            return False
-        end_time = self._start_time + datetime.timedelta(seconds=timeout)
-        return datetime.datetime.now() >= end_time
+        is_timeout_set = self._config["timeout"] is not False
+        end_time = self._start_time + datetime.timedelta(seconds=self._config["timeout"])
+        is_timed_out = datetime.datetime.now() >= end_time
+        return is_timeout_set and is_timed_out
 
     def crawl(self):
         self._start_time = datetime.datetime.now()
-
         while True:
-            url = SYS_RANDOM.choice(self._config.get("root_urls", []))
+            url = SYS_RANDOM.choice(self._config["root_urls"])
             try:
                 response = self._request(url)
-                if response is None:
-                    continue
-
-                body = response.content
-                self._links = self._extract_urls(body, url)
-                logging.debug(f"Found {len(self._links)} links")
-                self._browse_from_links()
-            except (requests.exceptions.RequestException, UnicodeDecodeError, MemoryError, LocationParseError) as e:
-                logging.warning(f"Error processing URL {url}: {e}")
+                if response:
+                    body = response.content
+                    self._links = self._extract_urls(body, url)
+                    logging.debug("found {} links".format(len(self._links)))
+                    self._browse_from_links()
+            except (requests.exceptions.RequestException, UnicodeDecodeError):
+                logging.warning("Error connecting to root url: {}".format(url))
+            except MemoryError:
+                logging.warning("Error: content at url: {} is exhausting the memory".format(url))
+            except LocationParseError:
+                logging.warning("Error encountered during parsing of: {}".format(url))
             except self.CrawlerTimedOut:
-                logging.info("Timeout has been reached, exiting")
+                logging.info("Timeout has exceeded, exiting")
                 return
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--log", type=str, help="logging level", default="info")
-    parser.add_argument("--config", type=str, required=True, help="config file")
-    parser.add_argument("--timeout", type=int, help="for how long the crawler should be running, in seconds", default=False)
-    parser.add_argument("--min_sleep", type=int, help="Minimum sleep before clicking another link.", default=1)
-    parser.add_argument("--max_sleep", type=int, help="Maximum sleep before clicking another link.", default=3)
+    parser.add_argument("--log", metavar="-l", type=str, help="logging level", default="info")
+    parser.add_argument("--config", metavar="-c", type=str, help="config file")
+    parser.add_argument("--timeout", metavar="-t", type=int, help="for how long the crawler should be running, in seconds", default=False)
+    parser.add_argument("--min_sleep", metavar="-min", type=int, help="Minimum sleep before clicking another link.")
+    parser.add_argument("--max_sleep", metavar="-max", type=int, help="Maximum sleep before clicking another link.")
     args = parser.parse_args()
 
     level = getattr(logging, args.log.upper())
     logging.basicConfig(level=level)
 
     crawler = Crawler()
-    crawler.load_config_file(args.config)
+
+    config_file = args.config if args.config else os.path.join(os.path.dirname(__file__), 'config.json')
+    
+    try:
+        crawler.load_config_file(config_file)
+    except FileNotFoundError:
+        logging.error("Config file not found: {}".format(config_file))
+        return
 
     if args.timeout:
         crawler.set_option("timeout", args.timeout)

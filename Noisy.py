@@ -150,7 +150,7 @@ def print_bandwidth_usage():
     # Convert bytes to megabytes
     mb_used = total_bandwidth / (1024 * 1024)
     # Print the total bandwidth used, overwriting the previous line
-    print(f"\rTotal Bandwidth Used: {mb_used:.2f} MB", end="")
+    print(f"\rTotal Bandwidth Used: {mb_used:.2f} MB", end="", flush=True)
 
 def main():
     parser = argparse.ArgumentParser()

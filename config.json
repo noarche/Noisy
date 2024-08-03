@@ -50,16 +50,20 @@
         "https://wsj.com",
         "https://today.com",
         "https://nature.com",
+        "https://paintball.com",
+        "https://bassproshops.com",
+        "https://walmart.com",
+        "https://howtogeek.com",
         "https://www.nytimes.com/timeswire",
-        "https://amazon.com",
-        "https://ebay.com"
+        "https://credit.com",
+        "https://nerdwallet.com"
     ],
     "blacklisted_urls": [
         "https://example.com/blacklisted-page",
         "https://anotherexample.com/blacklisted-section"
     ],
-    "max_depth": 3,
+    "max_depth": 5,
     "timeout": 9999999999,
-    "min_sleep": 10,
-    "max_sleep": 60
+    "min_sleep": 5,
+    "max_sleep": 15
 }

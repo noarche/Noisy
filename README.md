@@ -5,6 +5,8 @@
 
  Generate internet Traffic | Obfuscate your DNS queries with tons of fake ones | Grey hat tool. 
 
+ Transform your online presence with our advanced traffic obfuscation script! Seamlessly mimic diverse and legitimate browsing patterns using randomization, proxy routing, and user-agent spoofing. Protect your privacy and obscure your actual web traffic effortlessly and effectively.
+
 
 # 🛜 Loading Other Configs 
 

@@ -1,15 +1,21 @@
 ![image](https://github.com/user-attachments/assets/a61ce7d4-fe64-4700-bbde-5a817e69232a)
 
 
-# Noisy
-Generate internet traffic
+# 🕵️ Noisy 
+
+ Generate internet Traffic | Obfuscate your DNS queries with tons of fake ones | Grey hat tool. 
 
 
-# Config
+# 🛜 Loading Other Configs 
 
 By default the script uses config.json.
 
-If you create a copy you can use the `--config newconfig.json` argument to load newconfig.json. 
+Use the `--config configFlood.json` argument to load configFlood.json. This config is much faster than the default config however it uses more bandwidth. 
+
+
+## 🌐 Config Settings 
+
+Change and save these settings in the customConfig.json or edit the existing ones to better suite you.
 
  Depth
  

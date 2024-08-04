@@ -1,4 +1,4 @@
-Use convertlines.py to read a list of domains and convert it to be easily pasteable into config script. 
+Use convertlines.py to read a list of domains and convert it to be format allowing you to paste into config.json. 
 
 !!Domain list must follow this format:
 

@@ -12,7 +12,7 @@
 
 By default the script uses config.json.
 
-Use the `--config configFlood.json` argument to load configFlood.json. This config is much faster than the default config however it uses more bandwidth. 
+Use the `--config configHighBandwidth.json` argument to load configHighBandwidth.json. This config is much faster than the default config however it uses more bandwidth. 
 
 
 ## 🌐 Config Settings 

@@ -1,0 +1,5 @@
+bs4
+request
+fake_useragent
+urllib3
+argparse

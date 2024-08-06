@@ -17,36 +17,39 @@ SYS_RANDOM = random.SystemRandom()
 
 total_bandwidth = 0
 
-main_logo = '''
+main_logo = ''' 
 
-                                                              
 \033[92m  ░▒▓███████▓▒░ ░▒▓██████▓▒░░▒▓█▓▒░░▒▓███████▓▒░▒▓█▓▒░░▒▓█▓▒░ \033[0m
 \033[92m  ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░ \033[0m
 \033[92m  ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░ \033[0m
 \033[92m  ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓██████▓▒░ ░▒▓██████▓▒░  \033[0m
 \033[92m  ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░  ░▒▓█▓▒░     \033[0m
 \033[92m  ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░  ░▒▓█▓▒░     \033[0m
-\033[92m  ░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░░▒▓█▓▒░▒▓███████▓▒░   ░▒▓█▓▒░     \033[0m
+\033[92m  ░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░░▒▓█▓▒░▒▓███████▓▒░   ░▒▓█▓▒░     \033[0m                                                   
 
-                                                          
+'''
+
+infoabt = ''' 
+
       \033[95m****************************\033[0m
       \033[96m github.com/noarche/Noisy   \033[0m
       \033[94m    Traffic Obfuscation     \033[0m
       \033[95m****************************\033[0m
+     \033[96m Build Date: August 6 2024 \033[0m
+ \033[34m use no arguements for the default config\033[0m
+ \033[31m Available arguments for other configs:\033[0m
+ \033[32m --config configHighBandwidth.json\033[0m
+ \033[32m --config configLowBandwidth.json\033[0m
+ \033[32m --config configLowBandwidthFast.json\033[0m
 
-\033[96m Docker Build Date: August 6 2024 \033[0m
-
-\033[34m This docker image has 4 configs, use no arguements for the default config \033[0m
-\033[31m Available arguments for other configs: \033[0m
-\033[32m --config configHighBandwidth.json \033[0m
-\033[32m --config configLowBandwidth.json \033[0m
-\033[32m --config configLowBandwidthFast.json \033[0m
-
-\033[34m Visit the github for more information. \033[0m
-
+ \033[34m Visit the github for more information.\033[0m
 
 '''
+
+
 print(main_logo)
+
+print(infoabt)
 
 class Crawler:
     def __init__(self):

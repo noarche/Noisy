@@ -30,5 +30,5 @@
     "max_depth": 18,
     "timeout": 9999999999,
     "min_sleep": 15,
-    "max_sleep": 130
+    "max_sleep": 110
 }

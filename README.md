@@ -65,17 +65,17 @@ Change and save these settings in the customConfig.json or edit the existing one
 ## configs included in version 1.0
 
 
---config config.json
+`--config config.json`
 
---config configEDU.json
+`--config configEDU.json`
 
---config configGOV.json
+`--config configGOV.json`
 
---config configHighBandwidth.json
+`--config configHighBandwidth.json`
 
---config configLowBandwidth.json
+`--config configLowBandwidth.json`
 
---config configLowBandwidthFast.json
+`--config configLowBandwidthFast.json`
 
 Other variables such as max/min times also work in docker.
 

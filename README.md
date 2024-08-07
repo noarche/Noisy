@@ -8,6 +8,12 @@
  Transform your online presence with our advanced traffic obfuscation script! Seamlessly mimic diverse and legitimate browsing patterns using randomization and user-agent spoofing. Protect your privacy and obscure your actual web traffic effortlessly and effectively.
 
 
+# Example command to run a fast version of a config
+
+`python noisy.py --min_time 0 Max_time 1 --config configEDU.json`
+
+This loads the configEDU.json file and sets max time between links to 1 second.
+
 # 🛜 Loading Other Configs 
 
 By default the script uses config.json.

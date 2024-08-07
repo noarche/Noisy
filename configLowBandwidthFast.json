@@ -29,6 +29,6 @@
     "blacklisted_urls": [],
     "max_depth": 12,
     "timeout": 9999999999,
-    "min_sleep": 2,
-    "max_sleep": 29
+    "min_sleep": 1,
+    "max_sleep": 5
 }

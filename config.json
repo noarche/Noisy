@@ -19059,8 +19059,8 @@
         "https://storify.com"
     ],
     "blacklisted_urls": [],
-    "max_depth": 13,
+    "max_depth": 16,
     "timeout": 9999999999,
-    "min_sleep": 10,
-    "max_sleep": 50
+    "min_sleep": 1,
+    "max_sleep": 30
 }

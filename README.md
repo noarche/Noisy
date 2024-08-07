@@ -17,7 +17,7 @@ Use the `--config configHighBandwidth.json` argument to load configHighBandwidth
 
 ## 🌐 Config Settings 
 
-Change and save these settings in the customConfig.json or edit the existing ones to better suite you.
+Change and save these settings in the customConfig.json or edit the existing ones to better suite you. All flags are optional and only used to change the default settings.
 
  Depth
  
@@ -39,6 +39,7 @@ Change and save these settings in the customConfig.json or edit the existing one
 
 `--max_sleep 180`
 
+ 
 
 # ꧁꧂  Buy me a coffee ☕
 
@@ -52,6 +53,27 @@ Change and save these settings in the customConfig.json or edit the existing one
 
 **Litecoin** address `ltc1qu7ze2hlnkh440k37nrm4nhpv2dre7fl8xu0egx`
 
+
+# ꧁꧂ Docker Image
+
+## configs included in version 1.0
+
+
+--config config.json
+
+--config configEDU.json
+
+--config configGOV.json
+
+--config configHighBandwidth.json
+
+--config configLowBandwidth.json
+
+--config configLowBandwidthFast.json
+
+Other variables such as max/min times also work in docker.
+
+[Download Docker Image](https://hub.docker.com/r/torquetraction/noisy)
 
 
 -------------------------------------------------------------------

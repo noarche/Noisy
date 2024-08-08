@@ -1,4 +1,5 @@
-![image](https://github.com/user-attachments/assets/a61ce7d4-fe64-4700-bbde-5a817e69232a)
+![noisy-docker-github gif](https://github.com/user-attachments/assets/ea3dc9ab-e5f8-4078-a871-2432bcdb86ce)
+
 
 
 # 🕵️ Noisy 
@@ -8,42 +9,22 @@
  Transform your online presence with our advanced traffic obfuscation script! Seamlessly mimic diverse and legitimate browsing patterns using randomization and user-agent spoofing. Protect your privacy and obscure your actual web traffic effortlessly and effectively.
 
 
-# Example command to run a fast version of a config
-
-`python noisy.py --min_time 0 Max_time 1 --config configEDU.json`
-
-This loads the configEDU.json file and sets max time between links to 1 second.
-
-# 🛜 Loading Other Configs 
-
-By default the script uses config.json.
-
-Use the `--config configHighBandwidth.json` argument to load configHighBandwidth.json. This config is much faster than the default config however it uses more bandwidth. 
+`python noisy.py`
 
 
 ## 🌐 Config Settings 
 
 Change and save these settings in the customConfig.json or edit the existing ones to better suite you. All flags are optional and only used to change the default settings.
 
- Depth
- 
- `Set maximum links to click while staying on the same domain. A random number in between 1 and the number provided will be used.`
-
- Config loads config.json
-
-`--config config.json`
+ Valid string tries to filter the links to only links with your string. 
 
  Set seconds to run before stopping
 
-`--timeout 600`
-
  Set the minimum time before clicking another link measured in seconds
-
-`--min_sleep 60`
 
  Set the maximum time before clicking another link measured in seconds
 
-`--max_sleep 180`
+
 
  
 
@@ -62,22 +43,9 @@ Change and save these settings in the customConfig.json or edit the existing one
 
 # ꧁꧂ Docker Image
 
-## configs included in version 1.0
+'docker pull torquetraction/noisy:latest'
 
-
-`--config config.json`
-
-`--config configEDU.json`
-
-`--config configGOV.json`
-
-`--config configHighBandwidth.json`
-
-`--config configLowBandwidth.json`
-
-`--config configLowBandwidthFast.json`
-
-Other variables such as max/min times also work in docker.
+'docker run -it torquetraction/noisy:latest'
 
 [Download Docker Image](https://hub.docker.com/r/torquetraction/noisy)
 

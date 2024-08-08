@@ -43,9 +43,9 @@ Change and save these settings in the customConfig.json or edit the existing one
 
 # ꧁꧂ Docker Image
 
-'docker pull torquetraction/noisy:latest'
+`docker pull torquetraction/noisy:latest`
 
-'docker run -it torquetraction/noisy:latest'
+`docker run -it torquetraction/noisy:latest`
 
 [Download Docker Image](https://hub.docker.com/r/torquetraction/noisy)
 

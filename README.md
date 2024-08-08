@@ -18,8 +18,6 @@
 
  Valid string tries to filter the links to only links with your string. 
 
- Set seconds to run before stopping
-
  Set the minimum time before clicking another link measured in seconds
 
  Set the maximum time before clicking another link measured in seconds

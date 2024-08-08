@@ -14,7 +14,7 @@
 
 ## 🌐 Config Settings 
 
-Change and save these settings in the customConfig.json or edit the existing ones to better suite you. All flags are optional and only used to change the default settings.
+
 
  Valid string tries to filter the links to only links with your string. 
 

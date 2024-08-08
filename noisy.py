@@ -64,7 +64,7 @@ class Crawler:
         random_user_agent = UA.random
         headers = {"user-agent": random_user_agent}
         try:
-            response = requests.get(url, headers=headers, timeout=3)
+            response = requests.get(url, headers=headers, timeout=4)
             if response:
                 content_length = len(response.content)
                 total_bandwidth += content_length
@@ -143,7 +143,7 @@ class Crawler:
                     self._links = self._extract_urls(sub_page, random_link)
                 else:
                     self._remove_and_blacklist(random_link)
-                self.save_links(sub_links) 
+                self.save_links(sub_links)  # Save the found links to a file
         except (requests.exceptions.RequestException, UnicodeDecodeError):
             self._remove_and_blacklist(random_link)
         self._browse_from_links(depth + 1)
@@ -209,5 +209,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 

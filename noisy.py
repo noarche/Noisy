@@ -38,9 +38,9 @@ infoabt = '''
      \033[96m Build Date: August 6 2024 \033[0m
  \033[34m use no arguements for the default config\033[0m
  \033[31m Available arguments for other configs:\033[0m
- \033[32m --config configHighBandwidth.json\033[0m
- \033[32m --config configLowBandwidth.json\033[0m
- \033[32m --config configLowBandwidthFast.json\033[0m
+ \033[32m config configHighBandwidth.json\033[0m
+ \033[32m config configLowBandwidth.json\033[0m
+ \033[32m config configLowBandwidthFast.json\033[0m
 
  \033[34m Visit the github for more information.\033[0m
 
@@ -66,7 +66,7 @@ class Crawler:
         random_user_agent = UA.random
         headers = {"user-agent": random_user_agent}
         try:
-            response = requests.get(url, headers=headers, timeout=5)
+            response = requests.get(url, headers=headers, timeout=3)
             if response:
                 total_bandwidth += len(response.content)
                 print_bandwidth_usage()
@@ -146,6 +146,7 @@ class Crawler:
                     self._links = self._extract_urls(sub_page, random_link)
                 else:
                     self._remove_and_blacklist(random_link)
+                self.save_links(sub_links)  # Save the found links to a file
         except (requests.exceptions.RequestException, UnicodeDecodeError):
             logging.debug("Exception on URL: {}, removing from list and trying again!".format(random_link))
             self._remove_and_blacklist(random_link)
@@ -179,34 +180,37 @@ class Crawler:
                     self._links = self._extract_urls(body, url)
                     logging.debug("found {} links".format(len(self._links)))
                     self._browse_from_links()
-            except (requests.exceptions.RequestException, UnicodeDecodeError):
+                else:
+                    time.sleep(SYS_RANDOM.randrange(self._config["min_sleep"], self._config["max_sleep"]))
+            except (requests.exceptions.RequestException, LocationParseError):
+                logging.error(f"\033[91mInvalid URL: {url}\033[0m")
                 continue
 
-
-def main():
-    parser = argparse.ArgumentParser(description="Crawler")
-    parser.add_argument("--config", "-c", default="config.json", help="Path to config file")
-    parser.add_argument("--verbose", "-v", action="store_true", help="Enable verbose output")
-    args = parser.parse_args()
-    logging.basicConfig(level=logging.DEBUG if args.verbose else logging.INFO)
-    logging.getLogger("requests").setLevel(logging.CRITICAL)
-
-    try:
-        crawler = Crawler()
-        crawler.load_config_file(args.config)
-        crawler.crawl()
-    except KeyboardInterrupt:
-        logging.info("\033[91mCrawler interrupted by user\033[0m")
-    except Crawler.CrawlerTimedOut:
-        logging.info("\033[91mCrawler timed out\033[0m")
-
+    def save_links(self, links):
+        with open('output_links.txt', 'a') as file:
+            for link in links:
+                file.write(link + '\n')
 
 def print_bandwidth_usage():
     global total_bandwidth
-    print(f"\033[96mTotal bandwidth used: {total_bandwidth / (1024 * 1024):.2f} MB\033[0m", end="\r")
+    print(f"\033[34mTotal Bandwidth Used: {total_bandwidth / (1024 * 1024):.2f} MB\033[0m", end='\r')
 
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("config", nargs="?", help="Path to a configuration file")
+    args = parser.parse_args()
+
+    crawler = Crawler()
+    if args.config:
+        crawler.load_config_file(args.config)
+    else:
+        with open("config.json", "r") as default_config_file:
+            default_config = json.load(default_config_file)
+            crawler.set_config(default_config)
+    crawler.crawl()
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.DEBUG)
     main()
 
 

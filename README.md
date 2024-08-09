@@ -1,5 +1,4 @@
-![noisy-docker-github gif](https://github.com/user-attachments/assets/ea3dc9ab-e5f8-4078-a871-2432bcdb86ce)
-
+![noisy-docker-github gif](https://github.com/user-attachments/assets/fabae604-c393-41db-b78e-1d7676a42322)
 
 
 # 🕵️ Noisy 

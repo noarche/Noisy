@@ -38,7 +38,7 @@
 **Litecoin** address `ltc1qu7ze2hlnkh440k37nrm4nhpv2dre7fl8xu0egx`
 
 
-# ꧁꧂ Docker Image
+# ꧁꧂ Docker Image 🪅
 
 `docker pull torquetraction/noisy:latest`
 

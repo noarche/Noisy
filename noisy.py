@@ -5,6 +5,7 @@ import os
 import random
 import re
 import time
+import signal
 from urllib.parse import urljoin, urlparse
 import requests
 from fake_useragent import UserAgent
@@ -49,13 +50,20 @@ print(main_logo)
 
 print(infoabt)
 
-
 UA = UserAgent(min_percentage=15.1)
 REQUEST_COUNTER = -1
 SYS_RANDOM = random.SystemRandom()
 
 total_bandwidth = 0
 visited_responsive_urls = 0
+
+def handle_interrupt(signum, frame):
+    print(f"\n{Fore.RED}Process interrupted by user! Returning to main menu...{Style.RESET_ALL}")
+    main()
+
+def exit_script(signum, frame):
+    print(f"\n{Fore.RED}Exiting the script.{Style.RESET_ALL}")
+    exit(0)
 
 class Crawler:
     def __init__(self):
@@ -224,6 +232,8 @@ def load_configs():
     return configs
 
 def main():
+    signal.signal(signal.SIGINT, exit_script)
+    
     configs = load_configs()
     if not configs:
         print(f"{Fore.RED}No configuration files found in 'configs' directory.{Style.RESET_ALL}")
@@ -264,6 +274,7 @@ def main():
     if depth.isdigit():
         crawler.set_option("max_depth", int(depth))
 
+    signal.signal(signal.SIGINT, handle_interrupt)
     crawler.crawl()
 
 if __name__ == "__main__":

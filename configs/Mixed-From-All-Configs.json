@@ -35752,8 +35752,8 @@
         "https://skimfeed.com/news.html"
     ],
     "blacklisted_urls": [],
-    "max_depth": 16,
+    "max_depth": 20,
     "timeout": 9999999999,
-    "min_sleep": 0,
-    "max_sleep": 8
+    "min_sleep": 1,
+    "max_sleep": 3
 }

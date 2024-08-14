@@ -51,3 +51,7 @@
 
 ![noarche's GitHub stats](https://github-readme-stats.vercel.app/api?username=noarche&show_icons=true&theme=transparent)
 
+# Hi bandwidth crawler or HQ Links Gen
+
+[Check out crawler:latest and crawler:HighBandwidth](https://github.com/noarche/crawler)
+

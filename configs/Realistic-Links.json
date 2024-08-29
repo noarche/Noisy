@@ -12463,8 +12463,8 @@
         "https://southernliving.com/unexpected-thrift-store-finds-8407430"
     ],
     "blacklisted_urls": [],
-    "max_depth": 12,
+    "max_depth": 8,
     "timeout": 9999999999,
-    "min_sleep": 10,
-    "max_sleep": 120
+    "min_sleep": 1,
+    "max_sleep": 7
 }

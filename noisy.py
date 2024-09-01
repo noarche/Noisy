@@ -1,3 +1,28 @@
+# Disclaimer:
+# This code/script/application/program is solely for educational and learning purposes.
+# All information, datasets, images, code, and materials are presented in good faith and
+# intended for instructive use. However, noarche make no representation or warranty, 
+# express or implied, regarding the accuracy, adequacy, validity, reliability, availability,
+# or completeness of any data or associated materials.
+# Under no circumstance shall noarche have any liability to you for any loss, damage, or 
+# misinterpretation arising due to the use of or reliance on the provided data. Your utilization
+# of the code and your interpretations thereof are undertaken at your own discretion and risk.
+#
+# By executing script/code/application, the user acknowledges and agrees that they have read, 
+# understood, and accepted the terms and conditions (or any other relevant documentation or 
+#policy) as provided by noarche.
+#
+#Visit https://github.com/noarche for more information. 
+#
+#  _.··._.·°°°·.°·..·°¯°·._.··._.·°¯°·.·° .·°°°°·.·°·._.··._
+# ███╗   ██╗ ██████╗  █████╗ ██████╗  ██████╗██╗  ██╗███████╗
+# ████╗  ██║██╔═══██╗██╔══██╗██╔══██╗██╔════╝██║  ██║██╔════╝
+# ██╔██╗ ██║██║   ██║███████║██████╔╝██║     ███████║█████╗  
+# ██║╚██╗██║██║   ██║██╔══██║██╔══██╗██║     ██╔══██║██╔══╝  
+# ██║ ╚████║╚██████╔╝██║  ██║██║  ██║╚██████╗██║  ██║███████╗
+# ╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝
+# °°°·._.··._.·°°°·.°·..·°¯°··°¯°·.·°.·°°°°·.·°·._.··._.·°°°
+
 import argparse
 import datetime
 import json
@@ -14,6 +39,12 @@ import colorama
 from colorama import Fore, Style
 
 colorama.init(autoreset=True)
+
+cyan = "\033[1;36;40m"
+green = "\033[1;32;40m"
+red = "\033[1;31;40m"
+Y = '\033[1;33;40m'
+
 
 
 main_logo = ''' 
@@ -37,6 +68,7 @@ infoabt = '''
 \033[96m   Build Date: [91mA[0m[93mu[0m[92mg[0m[96mu[0m[94ms[0m[95mt[0m [91m1[0m[93m0[0m [92m2[0m[96m0[0m[94m2[0m[95m4[0m
  [91mS[0m[93me[0m[92ml[0m[96me[0m[94mc[0m[95mt[0m [91mt[0m[93mh[0m[92me[0m [96mc[0m[94mo[0m[95mn[0m[91mf[0m[93mi[0m[92mg[0m [96my[0m[94mo[0m[95mu[0m [91mw[0m[93ma[0m[92mn[0m[96mt[0m [94mt[0m[95mo[0m [91mr[0m[93mu[0m[92mn[0m[96m,[0m [94mE[0m[95ma[0m[91ms[0m[93my[0m [92mt[0m[96mo[0m [94mb[0m[95ml[0m[91me[0m[93mn[0m[92md[0m [96mi[0m[94ms[0m [95mb[0m[91me[0m[93ms[0m[92mt[0m[96m.[0m [94mA[0m[95ml[0m[91ml[0m [93mo[0m[92mt[0m[96mh[0m[94me[0m[95mr[0m [91mq[0m[93mu[0m[92me[0m[96ms[0m[94mt[0m[95mi[0m[91mo[0m[93mn[0m[92ms[0m
 [96ma[0m[94mr[0m[95me[0m [91mo[0m[93mp[0m[92mt[0m[96mi[0m[94mo[0m[95mn[0m[91ma[0m[93ml[0m [92mt[0m[96mo[0m [94mc[0m[95mu[0m[91ms[0m[93mt[0m[92mo[0m[96mm[0m[94mi[0m[95mz[0m[91me[0m [93my[0m[92mo[0m[96mu[0m[94mr[0m [95me[0m[91mx[0m[93mp[0m[92me[0m[96mr[0m[94mi[0m[95me[0m[91mn[0m[93mc[0m[92me[0m [96m&[0m [94mO[0m[95mK[0m [91mt[0m[93mo[0m [92ms[0m[96mk[0m[94mi[0m[95mp[0m [91mi[0m[93mf[0m [92mu[0m[96mn[0m[94ms[0m[95mu[0m[91mr[0m[93me[0m[92m.[0m
+ \033[36m   Since update Realistic-Links is the best config to use by default!\033[0m
  \033[36m   To filter links enter string to filter. Not reccomended. Leave blank to continue.\033[0m
   \033[32m   Domain Only? Not recomended. Leave blank to continue.\033[0m
  \033[32m   Enter minimum time to wait. fast is 0 (reccomended: 0)\033[0m
@@ -128,7 +160,7 @@ class Crawler:
         return url in self._blacklist
 
     def _contains_unwanted_strings(self, url):
-        unwanted_strings = ['.ico', '.png', '.jpg', '.webp', '.webm', '.pdf', '.doc', '.docx', '.svg', '.jpeg', '.json', '.onion', '.i2p', '.safetensors', '.rar', '.zip', '.gguf', '.ggml', '.shp', '.gif', '.avi', '.mp3', '.wav', '.mkv', '.mp4', '.m4a', '.flac', '.ogg', '.opus', '.avif', '.hc', '.tc', '.xyz', '.exe', '.msi', '.tar', '.7z', '.tif', '.css', '.csv']
+        unwanted_strings = ['.ico', '.png', '.jpg', '.webp', '.webm', '.js', '.pdf', '.doc', '.docx', '.svg', '.jpeg', '.json', '.onion', '.i2p', '.safetensors', '.rar', '.zip', '.gguf', '.ggml', '.shp', '.gif', '.avi', '.mp3', '.wav', '.mkv', '.mp4', '.m4a', '.flac', '.ogg', '.opus', '.avif', '.hc', '.tc', '.xyz', '.exe', '.msi', '.tar', '.7z', '.tif', '.css', '.csv']
         return any(unwanted_string in url for unwanted_string in unwanted_strings)
 
     def _remove_and_blacklist(self, url):
@@ -279,3 +311,29 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# Disclaimer:
+# This code/script/application/program is solely for educational and learning purposes.
+# All information, datasets, images, code, and materials are presented in good faith and
+# intended for instructive use. However, noarche make no representation or warranty, 
+# express or implied, regarding the accuracy, adequacy, validity, reliability, availability,
+# or completeness of any data or associated materials.
+# Under no circumstance shall noarche have any liability to you for any loss, damage, or 
+# misinterpretation arising due to the use of or reliance on the provided data. Your utilization
+# of the code and your interpretations thereof are undertaken at your own discretion and risk.
+#
+# By executing script/code/application, the user acknowledges and agrees that they have read, 
+# understood, and accepted the terms and conditions (or any other relevant documentation or 
+#policy) as provided by noarche.
+#
+#Visit https://github.com/noarche for more information. 
+#
+#  _.··._.·°°°·.°·..·°¯°·._.··._.·°¯°·.·° .·°°°°·.·°·._.··._
+# ███╗   ██╗ ██████╗  █████╗ ██████╗  ██████╗██╗  ██╗███████╗
+# ████╗  ██║██╔═══██╗██╔══██╗██╔══██╗██╔════╝██║  ██║██╔════╝
+# ██╔██╗ ██║██║   ██║███████║██████╔╝██║     ███████║█████╗  
+# ██║╚██╗██║██║   ██║██╔══██║██╔══██╗██║     ██╔══██║██╔══╝  
+# ██║ ╚████║╚██████╔╝██║  ██║██║  ██║╚██████╗██║  ██║███████╗
+# ╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝
+# °°°·._.··._.·°°°·.°·..·°¯°··°¯°·.·°.·°°°°·.·°·._.··._.·°°°

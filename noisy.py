@@ -1,28 +1,3 @@
-# Disclaimer:
-# This code/script/application/program is solely for educational and learning purposes.
-# All information, datasets, images, code, and materials are presented in good faith and
-# intended for instructive use. However, noarche make no representation or warranty, 
-# express or implied, regarding the accuracy, adequacy, validity, reliability, availability,
-# or completeness of any data or associated materials.
-# Under no circumstance shall noarche have any liability to you for any loss, damage, or 
-# misinterpretation arising due to the use of or reliance on the provided data. Your utilization
-# of the code and your interpretations thereof are undertaken at your own discretion and risk.
-#
-# By executing script/code/application, the user acknowledges and agrees that they have read, 
-# understood, and accepted the terms and conditions (or any other relevant documentation or 
-#policy) as provided by noarche.
-#
-#Visit https://github.com/noarche for more information. 
-#
-#  _.··._.·°°°·.°·..·°¯°·._.··._.·°¯°·.·° .·°°°°·.·°·._.··._
-# ███╗   ██╗ ██████╗  █████╗ ██████╗  ██████╗██╗  ██╗███████╗
-# ████╗  ██║██╔═══██╗██╔══██╗██╔══██╗██╔════╝██║  ██║██╔════╝
-# ██╔██╗ ██║██║   ██║███████║██████╔╝██║     ███████║█████╗  
-# ██║╚██╗██║██║   ██║██╔══██║██╔══██╗██║     ██╔══██║██╔══╝  
-# ██║ ╚████║╚██████╔╝██║  ██║██║  ██║╚██████╗██║  ██║███████╗
-# ╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝
-# °°°·._.··._.·°°°·.°·..·°¯°··°¯°·.·°.·°°°°·.·°·._.··._.·°°°
-
 import argparse
 import datetime
 import json
@@ -33,10 +8,10 @@ import time
 import signal
 from urllib.parse import urljoin, urlparse
 import requests
-from fake_useragent import UserAgent
 from urllib3.exceptions import LocationParseError
 import colorama
 from colorama import Fore, Style
+from user_agents import user_agents  # Assuming user_agents.py contains a list named `user_agents`
 
 colorama.init(autoreset=True)
 
@@ -44,8 +19,6 @@ cyan = "\033[1;36;40m"
 green = "\033[1;32;40m"
 red = "\033[1;31;40m"
 Y = '\033[1;33;40m'
-
-
 
 main_logo = ''' 
       [91m_[0m[93m_[0m[92m_[0m           [96m_[0m[94m_[0m[95m_[0m                       [91m_[0m[93m_[0m[92m_[0m           [96m_[0m[94m_[0m[95m_[0m     
@@ -77,12 +50,9 @@ infoabt = '''
  \033[96m   Enter depth, the number of links to visit on that domain before switching. A random number between 0 and your input will be used each time. Leave blank to continue.\033[0m
 '''
 
-
 print(main_logo)
-
 print(infoabt)
 
-UA = UserAgent(min_percentage=15.1)
 REQUEST_COUNTER = -1
 SYS_RANDOM = random.SystemRandom()
 
@@ -135,7 +105,7 @@ class Crawler:
 
     def _request(self, url):
         global total_bandwidth, visited_responsive_urls
-        random_user_agent = UA.random
+        random_user_agent = random.choice(user_agents)  # Use a random user agent from user_agents.py
         headers = {"user-agent": random_user_agent}
         try:
             response = requests.get(url, headers=headers, timeout=4)
@@ -248,17 +218,17 @@ class Crawler:
                 file.write(link + '\n')
 
 def print_responsive_link(url):
-    print(f"{Fore.GREEN}[91mR[0m[93me[0m[92ms[0m[96mp[0m[94mo[0m[95mn[0m[91ms[0m[93mi[0m[92mv[0m[96me[0m [94mL[0m[95mi[0m[91mn[0m[93mk[0m: {url}{Style.RESET_ALL}")
+    print(f"{Fore.GREEN}Responsive Link: {url}{Style.RESET_ALL}")
 
 def print_bandwidth_usage(content_length=0):
     global total_bandwidth, visited_responsive_urls
     total_bandwidth += content_length
-    print(f"{Fore.MAGENTA}[91mT[0m[93mo[0m[92mt[0m[96ma[0m[94ml[0m [95mB[0m[91ma[0m[93mn[0m[92md[0m[96mw[0m[94mi[0m[95md[0m[91mt[0m[93mh[0m [92mU[0m[96ms[0m[94me[0m[95md[0m: {total_bandwidth / (1024 * 1024):.2f} MB | [91mR[0m[93me[0m[92ms[0m[96mp[0m[94mo[0m[95mn[0m[91ms[0m[93mi[0m[92mv[0m[96me[0m [94mU[0m[95mR[0m[91mL[0m[93ms[0m [92mV[0m[96mi[0m[94ms[0m[95mi[0m[91mt[0m[93me[0m[92md[0m: {visited_responsive_urls}{Style.RESET_ALL}", end='\r')
+    print(f"{Fore.MAGENTA}Total Bandwidth Used: {total_bandwidth / (1024 * 1024):.2f} MB | Responsive URLs Visited: {visited_responsive_urls}{Style.RESET_ALL}", end='\r')
 
 def load_configs():
     config_dir = 'configs'
     configs = [f for f in os.listdir(config_dir) if f.endswith('.json')]
-    print(f"{Fore.YELLOW}[91mA[0m[93mv[0m[92ma[0m[96mi[0m[94ml[0m[95ma[0m[91mb[0m[93ml[0m[92me[0m [96mC[0m[94mo[0m[95mn[0m[91mf[0m[93mi[0m[92mg[0m[96mu[0m[94mr[0m[95ma[0m[91mt[0m[93mi[0m[92mo[0m[96mn[0m[94ms[0m:{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}Available Configurations:{Style.RESET_ALL}")
     for i, config in enumerate(configs):
         print(f"{Fore.CYAN}{i + 1}. {config}{Style.RESET_ALL}")
     return configs
